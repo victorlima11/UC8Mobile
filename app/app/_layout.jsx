@@ -39,6 +39,19 @@ export default function TabLayout() {
           ),
         }}
       />
+       <Tabs.Screen
+        name="index"
+        options={{
+          title: 'Index',
+          tabBarIcon: ({ color, focused }) => (
+            <Ionicons
+              name={focused ? 'globe' : 'globe'}
+              color={color}
+              size={24}
+            />
+          ),
+        }}
+      />
     </Tabs>
   );
 }

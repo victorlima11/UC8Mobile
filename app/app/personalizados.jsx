@@ -1,4 +1,4 @@
-import { Text, View } from 'react-native';
+import { Text, View, StyleSheet } from 'react-native';
 
 export default function App() {
   return (
@@ -10,7 +10,7 @@ export default function App() {
   );
 }
 
-const styles = {
+const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'center',
@@ -21,5 +21,6 @@ const styles = {
     fontSize: 20,
     textAlign: 'center',
     margin: 10,
+    color: "#f1f1f1",
   },
-};
+});
