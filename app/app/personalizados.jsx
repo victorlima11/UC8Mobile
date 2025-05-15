@@ -15,7 +15,7 @@ const styles = {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#F5FCFF',
+    backgroundColor: '#18181B',
   },
   text: {
     fontSize: 20,
