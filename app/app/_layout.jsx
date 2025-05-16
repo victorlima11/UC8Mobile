@@ -18,7 +18,7 @@ export default function TabLayout() {
       }}
     >
       <Tabs.Screen
-        name="nativos"
+        name="index"
         options={{
           title: 'Nativos',
           tabBarIcon: ({ color, focused }) => (
