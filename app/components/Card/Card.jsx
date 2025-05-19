@@ -2,6 +2,11 @@ import { ArrowRight } from "lucide-react-native";
 import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 
 export default function Card({ title, description, image }) {
+
+  const handlePress = () => {
+    alert(`Você selecionou ${title}`);
+  }
+
   return (
     <View style={styles.card}>
       <Image source={{ uri: image }} style={styles.image} />
@@ -11,7 +16,7 @@ export default function Card({ title, description, image }) {
         <Text numberOfLines={1} style={styles.description}>{description}</Text>
       </View>
       <View>
-        <TouchableOpacity style={styles.button}>
+        <TouchableOpacity style={styles.button} onPress={handlePress}>
             <ArrowRight color="#000" size={24} />
         </TouchableOpacity>
       </View>
