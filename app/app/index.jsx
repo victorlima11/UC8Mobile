@@ -1,74 +1,34 @@
-import { useState } from 'react';
-import { Button, Image, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity } from 'react-native';
+import React, { useState } from 'react';
+import { Button, Image, ScrollView, StatusBar, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
+import { useFonts, Raleway_400Regular, Raleway_300Light, Raleway_200ExtraLight, Raleway_400Regular_Italic } from '@expo-google-fonts/raleway';
+import { LinearGradient } from 'expo-linear-gradient';
+import BackgroundGradient from '../components/BackgroundGradient/BackgroundGradient';
+import Title from '../components/Title/Title';
+import styles from './styles';
+import Form from '../components/Form/Form';
 
 export default function App() {
-  const [nome, setNome] = useState('');
+  let [fontsLoaded] = useFonts({
+    Raleway_400Regular_Italic,
+    Raleway_400Regular,
+    Raleway_300Light,
+    Raleway_200ExtraLight,
+  });
+
+  if (!fontsLoaded) {
+    return null;
+  }
 
   return (
-    <ScrollView contentContainerStyle={styles.container}>
-
-      <Image
-        source={{ uri: 'https://icones.pro/wp-content/uploads/2021/06/icone-github-verte.png' }}
-        style={styles.image}
-      />
-
-      <Text style={styles.text}>Digite seu nome:</Text>
-      <TextInput
-        style={styles.input}
-        placeholder="Seu nome"
-        placeholderTextColor="#71717A"
-        value={nome}
-        onChangeText={setNome}
-      />
-
-      <Button style={styles.button} color="#32cd32" title="Button" onPress={() => alert(`Olá, ${nome}!`)} />
-      <TouchableOpacity onPressIn={() => alert(`Olá, ${nome}!`)}>
-        <Text style={styles.botao}>Touchable</Text>
-      </TouchableOpacity>
-    </ScrollView>
+    <BackgroundGradient
+      colors={['#1565c0', 'black']}
+      start={{ x: 0, y: 0 }}
+      end={{ x:0, y: 0.8 }} >
+      <StatusBar translucent backgroundColor="transparent" barStyle="light-content" />
+      <ScrollView contentContainerStyle={styles.container} showsVerticalScrollIndicator={false}>
+        <Title titulo={"Cadastro de Carros"} />
+        <Form />
+      </ScrollView>
+    </BackgroundGradient>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flexGrow: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#18181B',
-    padding: 20,
-  },
-  title: {
-    fontSize: 20,
-    fontWeight: 'bold',
-    color: '#ffffff',
-    marginBottom: 20,
-  },
-  text: {
-    fontSize: 16,
-    color: '#A1A1AA',
-    marginBottom: 10,
-  },
-  input: {
-    borderWidth: 1,
-    borderColor: '#3F3F46',
-    backgroundColor: '#27272A',
-    color: '#ffffff',
-    padding: 10,
-    width: '50%',
-    borderRadius: 5,
-    marginBottom: 20,
-  },
-  image: {
-    width: 80,
-    height: 80,
-    marginBottom: 20,
-  },
-  botao: {
-  backgroundColor: '#32cd32',
-  paddingVertical: 10,
-  paddingHorizontal: 10,
-  borderRadius: 2,
-  marginTop: 20,
-  color: '#ffffff',
-  },
-});
