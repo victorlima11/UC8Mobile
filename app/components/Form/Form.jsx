@@ -1,10 +1,9 @@
-import { useState, useRef } from 'react';
+import { useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity } from 'react-native';
 import styles from './styles';
 import { Picker } from '@react-native-picker/picker';
 
 export default function Form() {
-
     const [marca, setMarca] = useState('');
     const [modelo, setModelo] = useState('');
     const [ano, setAno] = useState('');
@@ -13,8 +12,16 @@ export default function Form() {
     const [itemSelecionado, setItemSelecionado] = useState('');
     const [corSelecionada, setCorSelecionada] = useState('');
 
-    const pickerRef = useRef();
-
+    const submitHandler = () => {
+        alert(`Modelo: ${modelo}, Marca: ${marca}, Cor: ${corSelecionada}, Ano: ${ano}, Placa: ${placa}`);
+        setModelo('');
+        setMarca('');
+        setAno('');
+        setCor('');
+        setPlaca('');
+        setItemSelecionado('');
+        setCorSelecionada('');
+    };
 
     return (
         <View style={styles.container}>
@@ -23,13 +30,18 @@ export default function Form() {
                 style={styles.input}
                 allowFontScaling={false}
                 placeholder="Digite o modelo do carro"
-                placeholderTextColor={'#000'} />
+                placeholderTextColor={'#000'}
+                value={modelo}
+                onChangeText={setModelo}
+            />
             <Text style={styles.label}>Marca</Text>
             <Picker
-                ref={pickerRef}
+                style={styles.picker}
                 selectedValue={itemSelecionado}
-                onValueChange={(itemValue) => setItemSelecionado(itemValue)}
-                style={ styles.picker }
+                onValueChange={(itemValue) => {
+                    setItemSelecionado(itemValue);
+                    setMarca(itemValue);
+                }}
             >
                 {itemSelecionado === '' && (
                     <Picker.Item label="Selecione a marca" value="" enabled={false} />
@@ -44,36 +56,42 @@ export default function Form() {
                 <Picker.Item label="Renault" value="renault" />
             </Picker>
             <Text style={styles.label}>Cor</Text>
-                <Picker
-                    selectedValue={cor}
-                    onValueChange={(itemValue) => setCorSelecionada(itemValue)}
-                    >
-                    { corSelecionada === '' && <Picker.Item label="Selecione a cor" value="" enabled={false} />}
-                    <Picker.Item label="Preto" value="preto" />
-                    <Picker.Item label="Branco" value="branco" />
-                    <Picker.Item label="Prata" value="prata" />
-                    <Picker.Item label="Vermelho" value="vermelho" />
-                    <Picker.Item label="Azul" value="azul" />
-                    <Picker.Item label="Verde" value="verde" />
-                    <Picker.Item label="Amarelo" value="amarelo" />
-                    <Picker.Item label="Laranja" value="laranja" />
-                    </Picker>
+            <Picker
+                selectedValue={corSelecionada}
+                onValueChange={(itemValue) => setCorSelecionada(itemValue)}
+            >
+                {corSelecionada === '' && <Picker.Item label="Selecione a cor" value="" enabled={false} />}
+                <Picker.Item label="Preto" value="preto" />
+                <Picker.Item label="Branco" value="branco" />
+                <Picker.Item label="Prata" value="prata" />
+                <Picker.Item label="Vermelho" value="vermelho" />
+                <Picker.Item label="Azul" value="azul" />
+                <Picker.Item label="Verde" value="verde" />
+                <Picker.Item label="Amarelo" value="amarelo" />
+                <Picker.Item label="Laranja" value="laranja" />
+            </Picker>
             <Text style={styles.label}>Ano</Text>
             <TextInput
                 keyboardType="numeric"
                 placeholderTextColor={"#000"}
                 style={styles.input}
-                placeholder="Digite o ano do carro" />
+                placeholder="Digite o ano do carro"
+                value={ano}
+                onChangeText={setAno}
+            />
             <Text style={styles.label}>Placa</Text>
             <TextInput
                 placeholderTextColor={"#000"}
                 maxLength={7}
                 autoCapitalize='characters'
                 style={styles.input}
-                placeholder="Digite o ano do carro" />
-             <TouchableOpacity style={styles.button}>
+                value={placa}
+                onChangeText={text => setPlaca(text.toUpperCase())}
+                placeholder="Digite o ano do carro"
+            />
+            <TouchableOpacity style={styles.button} onPress={submitHandler}>
                 <Text style={styles.buttonText}>Enviar</Text>
-             </TouchableOpacity>
+            </TouchableOpacity>
         </View>
-    )
+    );
 }
